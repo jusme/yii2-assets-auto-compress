@@ -145,8 +145,9 @@ class AssetsAutoCompressComponent extends Component implements BootstrapInterfac
     public function init(){
         parent::init();
         if($this->baseUrl===false){
-                $this->baseUrl=\Yii::$app->assetManager->baseUrl;
+                $this->baseUrl='';
         }
+	
     }
 
     /**
@@ -357,7 +358,7 @@ JS
     protected function _processingJsFiles($files = [])
     {
         $fileName = md5(implode(array_keys($files)).$this->getSettingsHash()).'.js';
-        $publicUrl = $this->baseUrl.'/js-compress/'.$fileName;
+        $publicUrl = $this->baseUrl.\Yii::$app->assetManager->baseUrl.'/js-compress/'.$fileName;
         //$publicUrl  = \Yii::getAlias('@web/assets/js-compress/' . $fileName);
 
         $rootDir = \Yii::$app->assetManager->basePath.'/js-compress';
@@ -522,7 +523,7 @@ JS
     protected function _processingCssFiles($files = [])
     {
         $fileName = md5(implode(array_keys($files)).$this->getSettingsHash()).'.css';
-        $publicUrl = $this->baseUrl.'/css-compress/'.$fileName;
+        $publicUrl = $this->baseUrl.\Yii::$app->assetManager->baseUrl.'/css-compress/'.$fileName;
         //$publicUrl  = \Yii::getAlias('@web/assets/css-compress/' . $fileName);
 
         $rootDir = \Yii::$app->assetManager->basePath.'/css-compress';
