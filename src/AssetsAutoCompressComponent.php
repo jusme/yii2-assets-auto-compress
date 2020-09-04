@@ -249,25 +249,25 @@ class AssetsAutoCompressComponent extends Component implements BootstrapInterfac
             \Yii::beginProfile('Compress js files');
             foreach ($view->jsFiles as $pos => $files) {
                 if ($files) {
-										$pre_files=[];
-										$except_files=[];
-										foreach($files as $k=>$one_file){
-											$except=false;
-											foreach($this->except as $ei=>$one_except){
-												if(strpos($one_file,$one_except)!==false){
-													$except=true;
-													unset($this->except[$ei]);
-													if($this->baseUrl!=\Yii::$app->assetManager->baseUrl){
-														$except_files[$k]=str_replace('src="',"src=\"{$this->baseUrl}",$one_file);
-													}else{
-														$except_files[$k]=$one_file;
-													}
-												}
-											}
-											if($except===false){
-												$pre_files[$k]=$one_file;
-											}
-										}
+                  $pre_files=[];
+                  $except_files=[];
+                  foreach($files as $k=>$one_file){
+                    $except=false;
+                    foreach($this->except as $ei=>$one_except){
+                      if(strpos($one_file,$one_except)!==false){
+                        $except=true;
+                        unset($this->except[$ei]);
+                        if($this->baseUrl!=\Yii::$app->assetManager->baseUrl){
+                          $except_files[$k]=str_replace('src="',"src=\"{$this->baseUrl}",$one_file);
+                        }else{
+                          $except_files[$k]=$one_file;
+                        }
+                      }
+                    }
+                    if($except===false){
+                      $pre_files[$k]=$one_file;
+                    }
+                  }
                     $view->jsFiles[$pos] = array_merge($this->_processingJsFiles($pre_files),$except_files);
                 }
             }
